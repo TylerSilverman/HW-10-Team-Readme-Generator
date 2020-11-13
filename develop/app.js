@@ -11,20 +11,14 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 //function to prompt the user for input choices. 
-function promptUser () {
-    return inquirer.prompt ({
-        type: "input",
-        message: "What is your email?",
-        name: "email",
-    })
-}
+// function promptUser () {
+//     return inquirer.prompt ({
+//         type: "input",
+//         message: "What is your email?",
+//         name: "email",
+//     })
+// }
 
-// }then((data)=>{
-        
-//     const filename = "index.html";
-
-//     fs.writeFile(filename, JSON.stringify(data, null, "\t"), (err) =>
-//     err ? console.log(err) : console.log ("Information Saved")
  
 
 
