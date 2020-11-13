@@ -10,6 +10,23 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+//function to prompt the user for input choices. 
+function promptUser () {
+    return inquirer.prompt ({
+        type: "input",
+        message: "What is your email?",
+        name: "email",
+    })
+}
+
+// }then((data)=>{
+        
+//     const filename = "index.html";
+
+//     fs.writeFile(filename, JSON.stringify(data, null, "\t"), (err) =>
+//     err ? console.log(err) : console.log ("Information Saved")
+ 
+
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -32,4 +49,4 @@ const render = require("./lib/htmlRenderer");
 // and Intern classes should all extend from a class named Employee; see the directions
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
+// for the provided `render` function to work!
