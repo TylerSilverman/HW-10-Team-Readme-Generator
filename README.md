@@ -41,10 +41,10 @@ It is recommended that you follow this workflow:
 It is recommended that you start with a directory structure that looks like this:
 
 ```
-lib/           // classes and helper code
+develop/lib/           // classes and helper code
 output/        // rendered output
-templates/     // HTML template(s)
-test/          // jest tests
+develop/templates/     // HTML template(s)
+develop/test/          // jest tests
   Employee.test.js
   Engineer.test.js
   Intern.test.js
