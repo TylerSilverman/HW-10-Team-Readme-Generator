@@ -13,7 +13,7 @@ class Engineer extends Employee {
 
     getRole() {
         return `Engineer`; 
-    } //Override to return Manager
+    } //Override to return Engineer
 }
 
 module.exports = Engineer;
