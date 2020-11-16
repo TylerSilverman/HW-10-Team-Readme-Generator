@@ -1,6 +1,8 @@
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
+
+//remmeber to make sure to install node modules folder (npm init -y) and also inquirer (npm i inquirer)
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
@@ -8,16 +10,31 @@ const fs = require("fs");
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
+const teamProfile = [];
+
 const render = require("./lib/htmlRenderer");
 
+
 //function to prompt the user for input choices. 
-// function promptUser () {
-//     return inquirer.prompt ({
-//         type: "input",
-//         message: "What is your email?",
-//         name: "email",
-//     })
-// }
+function promptEmployee () {
+    return inquirer.prompt (
+        {
+        type: "input",
+        message: "What is your email?",
+        name: "email",
+        },
+        {
+            type: "input",
+            message: "What is your name?",
+            name: "Name",
+        },
+        {
+            type: "input",
+            message: "What is your id number?",
+            name: "id Number",
+            }
+    )
+}
 
  
 
