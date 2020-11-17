@@ -26,67 +26,76 @@ const teamMember = [];
 //function toq uestion  the user for input choices for the employeeQuestions:
 function runApplication () {
     inquirer.prompt (
-        {type: "input", message: "managerName", name: "What is Mangers Name?" },
-        {type: "input", message: "managerId", name: "What is the ID number" },
-        {type: "input", message: "managerEmail", name: "What is the email address?" },
-        {type: "input", message: "managerOfficeNumber", name: "What is the office number?" },
-        // {
-        //     type: "list",
-        //     name: "role",
-        //     message: "What is your Status?",
-        //     choices: ["Engineer", "Intern", "Manager"],
-        // },
-        //this the functions for the manager 
-    ).then (response => {
-        const manager = new Manager (response.managerName, response.managerId, response.managerEmail, response.officeNumber);
-        teamMember.push(manager);
-        addingMoreMembers();
-    })
-};
+            {type: "input", message: "managerName", name: "What is Managers Name?" },
+            {type: "input", message: "managerId", name: "What is the ID number" },
+            {type: "input", message: "managerEmail", name: "What is the email address?" },
+            {type: "input", message: "managerOfficeNumber", name: "What is the office number?" },
+            //this the functions for the manager 
+        ).then (response => {
+            const manager = new Manager (response.managerName, response.managerId, response.managerEmail, response.officeNumber);
+            teamMember.push(manager);
+            addingMoreMembers();
+        })
+    }
     //function for the Engineer questions 
-function getEngineer (){
-    inquirer.prompt ([
-        {type: "input", message: "engineerName", name: "What is Engineer's Name?" },
-        {type: "input", message: "managerEmail", name: "What is the email address?" },
-        { name: "input", name: "engineerId", message: "What is the ID Number?"},
-        {type: "input", name: "github", message: "What is your github username?"},
-    ]).then(response => {
-        const engineer = new Engineer (response.engineerName, response.managerEmail, response.engineerId, response.github);
-        teamMember.push(engineer);
-        addingMoreMembers();
-         // id.push(response.engineerId);
-    })
-};
-
+    function getEngineer (){
+        inquirer.prompt ([
+            {type: "input", message: "engineerName", name: "What is Engineer's Name?" },
+            {type: "input", message: "managerEmail", name: "What is the email address?" },
+            {type: "input", name: "engineerId", message: "What is the ID Number?"},
+            {type: "input", name: "github", message: "What is your github username?"},
+        ]).then(response => {
+            const engineer = new Engineer (response.engineerName, response.managerEmail, response.engineerId, response.github);
+            teamMember.push(engineer);
+            addingMoreMembers();
+            // id.push(response.engineerId);
+        })
+    }
     //function fot the intern 
-function getIntern () {
-    inquirer.prompt ([
+    function getIntern () {
+        inquirer.prompt ([
+            {type: "input", message: "internName", name: "What is Intern's Name?" },
+            { type: "input", name: "internId", message: "What is the ID Number?"},
+            {type: "input", message: "internEmail", name: "What is the email address?" },
+            {type: "input", name: "school", message: "What school did you attend?"},
+        ]).then(response => {
+            const intern = new Intern (response.internName, response.internId, reponse.internEmail, response.school);
+            teamMember.push(intern);
+            addingMoreMembers();
+            //id.push(response.internId);
+        })
+    }
+    //function to add more memebers to any section 
+    function addingMoreMembers (){
+        inquirer.prompt (
+            {
+                type: "checkbox",
+                name: "role",
+                message: "What is your Status?",
+                choices: ["Engineer", "Intern", "Manager", "Done"],
+            }
+        ).then(response => {
+            const positions = response.selectedMembers;
+            if (positions == "manager"){
+                getManager ();
+            }else if (positions == "engineer"){
+                getEngineer ();
+            } else if ( [positions] == "intern"){
+                getIntern ();
+            } else if (positions == "finish"){ //this is for the next function to createTeam and will be able to create the placeCards
+                createTeam();
+            }
+        });
+    }
+    addingMoreMembers ();
+;
 
-    ]).then
+function createTeam (){
+    fs.writeFile(outputPath, render(teamMember), "team.html");
 }
-
-
-    // console.log(employeeQuestions)
-//function to questions the user for input choices for the managerQuestions:
-// const managerQuestions = [
-//     {name: "officeNumber", message: "Whats the Manager's Office Number >"},
-//     console.log(managerQuestions),
-// ];
-
-//function to questions the user for input choices for the internQuestions:
-// const internQuestions = [
-//     { name: "school" , message: "Which Intern School did you attend:" },
-//     console.log(internQuestions),
-// ];
+runApplication ();
 
 //confirm all question answers since all answers are correct. Also confirming that there is no one else to include. 
-// const confirmQuestions = [
-//     {
-//         type: "confrim",
-//         name: "adding",
-//         message: "IS there more information you want to add:?"
-//     },
-//     console.log(confirmQuestions)
 // ].then(function(answers){
 //     console.log(answers)
 
@@ -111,30 +120,6 @@ function getIntern () {
 //     let addEmployees = true;
 
 // };
-    //   //adding the base of questions to what is suppose to answer.
-    // while (addEmployees) {
-    //     const { name, id, email, role } = await inquirer.prompt (employeeQuestions);
-
-    //     ////questions about the manager 
-    //     if (role === "Manager"){
-    //         const {officeNumber} = await inquirer.prompt(managerQuestions); 
-
-    //     ////pushing out an obsject of the manager array. 
-    //     employee.push(new Manager(name, id, email, officeNumber));
-
-    //     ////creating the else if statement for manager  to compare to the other classes. 
-    //     }else if (role === "Engineer") {
-    //         const {github} = await inquirer.prompt (engineerQuestions);
-
-    //         employee.push(new Engineer(name, id, email, github));
-
-    //         //creating an else statement for the engineer 
-    //     }else { 
-    //         const{school} = await inquirer.prompt (internQuestions);
-
-    //         //creating the else statement for the intern. 
-    //         employee. push(new Intern(name, id, email, school));
-    //     }{
     //         ////adding a feature to add addtional people to the list
     //         const { adding } = await inquirer.prompt(confirm);
     //         ////function showing what addEmployees and adding is equal too. 
