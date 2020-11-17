@@ -7,13 +7,13 @@ class Engineer extends Employee {
         this.github = github;
     }
 
-    getGithub () {
-        return this.github;
-    }
-
     getRole() {
         return `Engineer`; 
     } //Override to return Engineer
+
+    getGithub () {
+        return this.github;
+    }
 }
 
 module.exports = Engineer;
