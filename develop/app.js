@@ -14,7 +14,7 @@ const render = require("./lib/htmlRenderer");
 //----------------------------------------------------//
 //more functions that I have created are below:
 
-// const util = require("util");
+const util = require("util");
 //create for extra html documents 
 // const generateMarkdownFile = require ("./generateMarkdownFile");
 // const generateFile = util.promiseify(fs.generate);
@@ -71,27 +71,27 @@ function runApplication () {
             {
                 type: "checkbox",
                 name: "role",
-                message: "What is your Status?",
-                choices: ["Engineer", "Intern", "Manager", "Done"],
+                message: "Choose One?",
+                choices: ["Manager", "Engineer", "Intern", "Submit"],
             }
         ).then(response => {
-            const positions = response.selectedMembers;
+            const positions = response.role;
             if (positions == "manager"){
                 getManager ();
             }else if (positions == "engineer"){
                 getEngineer ();
-            } else if ( [positions] == "intern"){
+            } else if (positions == "intern"){
                 getIntern ();
             } else if (positions == "finish"){ //this is for the next function to createTeam and will be able to create the placeCards
-                createTeam();
+                renderTeam();
             }
         });
     }
     addingMoreMembers ();
 ;
-
-function createTeam (){
-    fs.writeFile(outputPath, render(teamMember), "team.html");
+ 
+function renderTeam (){
+    fs.writeFile(outputPath, render(teamMember), "utf-8");
 }
 runApplication ();
 
