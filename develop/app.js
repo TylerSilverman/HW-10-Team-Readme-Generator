@@ -26,7 +26,7 @@ const teamMember = [];
 //function toq uestion  the user for input choices for the employeeQuestions:
 function runApplication () {
     inquirer.prompt (
-            {type: "input", message: "managerName", name: "What is Managers Name?" },
+            {type: "input", message: "What is Manager's Name?", name: "managerName" },
             {type: "input", message: "managerId", name: "What is the ID number" },
             {type: "input", message: "managerEmail", name: "What is the email address?" },
             {type: "input", message: "managerOfficeNumber", name: "What is the office number?" },
@@ -38,61 +38,61 @@ function runApplication () {
         })
     }
     //function for the Engineer questions 
-    function getEngineer (){
-        inquirer.prompt ([
-            {type: "input", message: "engineerName", name: "What is Engineer's Name?" },
-            {type: "input", message: "managerEmail", name: "What is the email address?" },
-            {type: "input", name: "engineerId", message: "What is the ID Number?"},
-            {type: "input", name: "github", message: "What is your github username?"},
-        ]).then(response => {
-            const engineer = new Engineer (response.engineerName, response.managerEmail, response.engineerId, response.github);
-            teamMember.push(engineer);
-            addingMoreMembers();
-            // id.push(response.engineerId);
-        })
-    }
+    // function getEngineer (){
+    //     inquirer.prompt ([
+    //         {type: "input", message: "engineerName", name: "What is Engineer's Name?" },
+    //         {type: "input", message: "managerEmail", name: "What is the email address?" },
+    //         {type: "input", name: "engineerId", message: "What is the ID Number?"},
+    //         {type: "input", name: "github", message: "What is your github username?"},
+    //     ]).then(response => {
+    //         const engineer = new Engineer (response.engineerName, response.managerEmail, response.engineerId, response.github);
+    //         teamMember.push(engineer);
+    //         addingMoreMembers();
+    //         // id.push(response.engineerId);
+    //     })
+    // }
     //function fot the intern 
-    function getIntern () {
-        inquirer.prompt ([
-            {type: "input", message: "internName", name: "What is Intern's Name?" },
-            { type: "input", name: "internId", message: "What is the ID Number?"},
-            {type: "input", message: "internEmail", name: "What is the email address?" },
-            {type: "input", name: "school", message: "What school did you attend?"},
-        ]).then(response => {
-            const intern = new Intern (response.internName, response.internId, reponse.internEmail, response.school);
-            teamMember.push(intern);
-            addingMoreMembers();
-            //id.push(response.internId);
-        })
-    }
+    // function getIntern () {
+    //     inquirer.prompt ([
+    //         {type: "input", message: "internName", name: "What is Intern's Name?" },
+    //         { type: "input", name: "internId", message: "What is the ID Number?"},
+    //         {type: "input", message: "internEmail", name: "What is the email address?" },
+    //         {type: "input", name: "school", message: "What school did you attend?"},
+    //     ]).then(response => {
+    //         const intern = new Intern (response.internName, response.internId, reponse.internEmail, response.school);
+    //         teamMember.push(intern);
+    //         addingMoreMembers();
+    //         //id.push(response.internId);
+    //     })
+    // }
     //function to add more memebers to any section 
-    function addingMoreMembers (){
-        inquirer.prompt (
-            {
-                type: "checkbox",
-                name: "role",
-                message: "Choose One?",
-                choices: ["Manager", "Engineer", "Intern", "Submit"],
-            }
-        ).then(response => {
-            const positions = response.role;
-            if (positions == "manager"){
-                getManager ();
-            }else if (positions == "engineer"){
-                getEngineer ();
-            } else if (positions == "intern"){
-                getIntern ();
-            } else if (positions == "finish"){ //this is for the next function to createTeam and will be able to create the placeCards
-                renderTeam();
-            }
-        });
-    }
-    addingMoreMembers ();
+    // function addingMoreMembers (){
+    //     inquirer.prompt (
+    //         {
+    //             type: "checkbox",
+    //             name: "position",
+    //             message: "Choose One?",
+    //             choices: ["Manager", "Engineer", "Intern", "Return"],
+    //         },
+    //     ).then(response => {
+    //         const role = response.position;
+    //         if (role == "manager"){
+    //             getManager ();
+    //         }else if (role == "engineer"){
+    //             getEngineer ();
+    //         } else if (role == "intern"){
+    //             getIntern ();
+    //         } else if (role == "return"){ //this is for the next function to createTeam and will be able to create the placeCards
+    //             renderTeam(); 
+    //         }
+    //     });
+    // }
+    // addingMoreMembers ();
 ;
  
-function renderTeam (){
-    fs.writeFile(outputPath, render(teamMember), "utf-8");
-}
+// function renderTeam (){
+//     fs.writeFile(outputPath, render(teamMember), "utf-8");
+// }
 runApplication ();
 
 //confirm all question answers since all answers are correct. Also confirming that there is no one else to include. 

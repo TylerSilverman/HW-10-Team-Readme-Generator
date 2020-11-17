@@ -1,0 +1,13 @@
+.text-center {
+    background-color: blue;
+    color: blue;
+}
+
+#team-heading {
+    background-color: blue;
+}
+
+.card {
+    width: 100%;
+    margin:5px;
+}
