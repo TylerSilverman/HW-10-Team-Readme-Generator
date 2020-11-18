@@ -4,16 +4,25 @@ const Employee = require("./Employee");
 class Engineer extends Employee {
     constructor(name, id, email, github){
         super(name, id, email);
-        this.github = github;
+        this.github = github; //github account 
+    }  
+
+    //getRole() should return "Engineer"  //Override to return 
+    getRole() {
+        return "Engineer"; 
     }
 
-    getRole() {
-        return `Engineer`; 
-    } //Override to return Engineer
 
+    //function set GitHUb account via constructor with line 7
     getGithub () {
         return this.github;
     }
 }
+// const engineer = new Engineer ("Tyler", 55, "test@gmail.com", "github-username");
+// engineer.getName();
+// engineer.getId();
+// engineer.getEmail();
+// engineer.getGithub ();
+// engineer.getRole ();
 
 module.exports = Engineer;

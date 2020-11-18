@@ -4,14 +4,15 @@ const Employee = require("./Employee");
 class Manager extends Employee {
     constructor (name, id, email, officeNumber){
         super (name, id, email);
-        this.officeNumber = officeNumber; 
+        this.officeNumber = officeNumber; ///Can set office number via constructor argument 
     };
-    getRole () {
-        return `Manager`;//overriden to return Manager
-    }
-
+        //Can set office number via constructor argument line 7
     getOfficeNumber () {
         return this.officeNumber;
+    }
+    // getRole() should return "Manager"
+    getRole () {
+        return "Manager";//overriden to return Manager
     }
 };
 
