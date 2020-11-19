@@ -1,34 +1,5 @@
-//code that was given to start:
-const Manager = require("./lib/Manager");
-const Engineer = require("./lib/Engineer");
-const Intern = require("./lib/Intern");
-//remmeber to make sure to install node modules folder (npm init -y) and also inquirer (npm i inquirer)
-const inquirer = require("inquirer");
-const path = require("path");
-const fs = require("fs");
-//output code to create teh external html documents
 
-// const server = http.createServer(handleRequest);
-
-const OUTPUT_DIR = path.resolve(__dirname, "output");
-const outputPath = path.join(OUTPUT_DIR, "team.html");
-//render code to return and render the information
-const render = require("./lib/htmlRenderer");
-//----------------------------------------------------//
-//more functions that I have created are below:
-
-const util = require("util");
-//create for extra html documents 
-// const generateMarkdownFile = require ("./generateMarkdownFile");
-// const generateFile = util.promiseify(fs.generate);
-// const writeFile = util.promiseify(fs.writeFile);
-
-//-----------------------------------------------------//
-//-----------// code for addTeamMember to the list
-const teamMember = [];
-//function toq uestion  the user for input choices for the employeeQuestions:
-// function runApplication () {
-    inquirer.prompt (
+inquirer.prompt (
             {type: "input", message: "This is line 29-Please confirm both answers ", name: "managerName" },
             // {type: "input", message: "What is Id Number", name: "managerId" },
             // {type: "input", message: "managerEmail", name: "What is the email address?" },
@@ -41,21 +12,6 @@ const teamMember = [];
 
             
         })
-        //function for the Engineer questions 
-        function getEngineer (){
-            inquirer.prompt ([
-                // {type: "input", message: "engineerName", name: "What is Engineer's Name?" },
-                {type: "input", message: "managerEmail", name: "What is the email address?" },
-                {type: "input", name: "engineerId", message: "What is the ID Number?"},
-                {type: "input", name: "github", message: "What is your github username?"},
-            ]).then(response => {
-                const engineer = new Engineer (response.engineerName, response.managerEmail, response.engineerId, response.github);
-                teamMember.push(engineer);
-                addingMoreMembers();
-                // id.push(response.engineerId);
-            })
-        }
-
         //function fot the intern 
         function getIntern () {
             inquirer.prompt ([
@@ -81,38 +37,36 @@ const teamMember = [];
                     choices: ["Manager", "Engineer", "Intern"], // choice selection
                     message: "Choose One?", //which selection is choosen
                 }
-            );
-                // }).then(response => {
-                // const role = response.position;
-                // if (role == "manager"){
-                //     getManager ();
-                // }else if (role == "engineer"){
-                //     getEngineer ();
-                // } else if (role == "intern"){
-                //     getIntern ();
-                // } else if (role == "return"){ //this is for the next function to createTeam and will be able to create the placeCards
-                //     renderTeam(); 
-                // }
+            ).then(response => {
+                const role = response.position;
+                if (role == "manager"){
+                    getManager ();
+                }else if (role == "engineer"){
+                    getEngineer ();
+                } else if (role == "intern"){
+                    getIntern ();
+                } else if (role == "return"){ //this is for the next function to createTeam and will be able to create the placeCards
+                    renderTeam(); 
+                }
+            addingMoreMembers ();
         }
-        //this prompts to ask which selection to choose from
-        addingMoreMembers ();
     
-        function renderTeam (){
-            if (!fs.existsSync(outputPath)){ 
-                fs.mkdirSync(OUTPUT_DIR);
-            }
-            fs.writeFile(outputPath, render(teamMember), (error) => {
-                if (error) {
-                    throw err;
-            }
-            console.log("Did this work?")
-        })
-    }
-    //this should be the last thing after the function is closed to actually run the application questions 
+    //     function renderTeam (){
+    //         if (!fs.existsSync(outputPath)){ 
+    //             fs.mkdirSync(OUTPUT_DIR);
+    //         }
+    //         fs.writeFile(outputPath, render(teamMember), (error) => {
+    //             if (error) {
+    //                 throw err;
+    //         }
+    //         console.log("Did this work?")
+    //     })
+    // }
+    // //this should be the last thing after the function is closed to actually run the application questions 
     // runApplication ();
 
     //confirm all question answers since all answers are correct. Also confirming that there is no one else to include. 
-    // ].then(function(answers){
+    // .then(function(answers){
     //     console.log(answers)
     
 
@@ -125,10 +79,6 @@ const teamMember = [];
     //         })
     //     }
     // });
-
-
-
-//
 
     // const init = async () => {
     //     const employee = []

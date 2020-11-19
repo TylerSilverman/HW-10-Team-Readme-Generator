@@ -12,6 +12,7 @@ const http = require("http");
 // const server = http.createServer(handleRequest);
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
+
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 //render code to return and render the information
 const render = require("./lib/htmlRenderer");
@@ -31,7 +32,7 @@ const teamMember = [];
 //function toq uestion  the user for input choices for the employeeQuestions:
 
 // function runApplication () {
-// function addingMoreMembers (){
+function addingMoreMembers (){
 
     //prompting the user to choose
     inquirer.prompt ([
@@ -39,40 +40,77 @@ const teamMember = [];
             type: "list",
             message: "Choose which to enter?",
             name: "Directory",
-            choices: ["Employee", "Manager", "Engineer", "Intern"]
+            choices: ["Manager", "Engineer", "Intern", "Return"]
         },
-        //prompting to enter name
+        //prompting to enter name class employee
         {
             type: "input",
-            message: "What is the name?",
+            message: "Whats the candidate name?",
             name: "name",
         },
-        //prompting to enter ID number
-        {
-            type: "input",
-            message: "What is the ID Number?",
-            name: "idNumber",
-        },
-        //prompting to enter email
+        //prompting to enter email class employee
         {
             type: "input",
             message: "What is the email address?",
             name: "email",
         },
-    ]).then(function (response){
-        console.log(response)
-
-        const fileName = "output/README.md";
-
-        const content = generateContent(response);
-
-        fs.writeFile(fileName, content, (err) =>
-        err ? console.log(err) : console.log("Information Created a README.md")
-        );
+        //prompting to enter ID number class employee
+        {
+            type: "input",
+            message: "What is the ID Number?",
+            name: "idNumber",
+        },
+        //prompting to enter office Number of the Managaer class
+        {
+            type: "input",
+            message: "What is your Office Number?",
+            name: "officeNumber",
+        },
+        //prompting to enter Github Account of the Engineer class
+        {
+            type: "input",
+            message: "Whats your gitHub Name?",
+            name: "github",
+        },
+        //prompting to get the school information of the Intern class
+        {
+            type: "input",
+            message: "What School did you attend?",
+            name: "school",
+        },
+        {
+            type: "confirm",
+            message: "Would you like to add more?",
+            name: "addingMoreMembers",
+        },
+    ]).then(function(response){
+        const newManager  = new Manager (response.name, response.email, response.id, response.role) 
+            teamMember.push(newManager);
+        if (response.addingMoreMembers === true) { //this is the function asking if it want to add another member. 
+           return addingMoreMembers();
+        } else {
+            renderTeam ();
+            console.log("check function!,file didnt generate")
+        };
     })
-// }
+};
+addingMoreMembers ();
 
-// addingMoreMembers ();
+function renderTeam ()
+{
+    function renderTeam (){
+                if (!fs.existsSync(outputPath)){ 
+                    fs.mkdirSync(OUTPUT_DIR);
+                }
+                fs.writeFile(outputPath, render(teamMember), (error) => {
+                    if (error) {
+                        throw err;
+                }
+                console.log("file generated")
+            })
+        }
+}
+// 
 
 
     // ]).then(function (response){
@@ -115,18 +153,7 @@ const teamMember = [];
 
         //function fot the intern 
         // function getIntern () {
-        //     inquirer.prompt ([
-        //         {type: "input", message: "internName", name: "What is Intern's Name?" },
-        //         { type: "input", name: "internId", message: "What is the ID Number?"},
-        //         {type: "input", message: "internEmail", name: "What is the email address?" },
-        //         {type: "input", name: "school", message: "What school did you attend?"},
-        //     ]).then(response => {
-        //         const intern = new Intern (response.internName, response.internId, reponse.internEmail, response.school);
-        //         teamMember.push(intern);
-        //         addingMoreMembers();
-        //         //id.push(response.internId);
-        //     })
-        // }
+        //     
         
         //function to add more memebers to any section 
         //this is the first thing that is prompted/ 
@@ -140,16 +167,37 @@ const teamMember = [];
         //         }
         //     );
                 // }).then(response => {
-                // const role = response.position;
-                // if (role == "manager"){
-                //     getManager ();
-                // }else if (role == "engineer"){
-                //     getEngineer ();
-                // } else if (role == "intern"){
-                //     getIntern ();
-                // } else if (role == "return"){ //this is for the next function to createTeam and will be able to create the placeCards
-                //     renderTeam(); 
-                // }
+        //         // const role = response.position;
+        // if (role == "manager"){
+        //             getManager ();
+        //         }else if (role == "engineer"){
+        //             getEngineer ();
+        //         } else if (role == "intern"){
+        //         //     getIntern ();
+        //         inquirer.prompt ([
+        //             {   type: "input", 
+        //                 message: "internName", 
+        //                 name: "What is Intern's Name?" 
+        //             },
+        //             {   type: "input", 
+        //                 name: "internId", 
+        //                 message: "What is the ID Number?"
+        //             },
+        //             {   type: "input", 
+        //                 message: "internEmail", 
+        //                 name: "What is the email address?" 
+        //             },
+        //             {   type: "input", 
+        //                 name: "school", 
+        //                 message: "What school did you attend?"
+        //             },
+        //                 ]).then(response => {
+        //                     const intern = new Intern (response.internName, response.internId, reponse.internEmail, response.school);
+        //                     teamMember.push(intern);
+        //                     addingMoreMembers();
+        //                     //id.push(response.internId);
+        //                 })
+        //             }
         //this prompts to ask which selection to choose from
     //     addingMoreMembers ();
     
@@ -170,62 +218,3 @@ const teamMember = [];
     //confirm all question answers since all answers are correct. Also confirming that there is no one else to include. 
     // ].then(function(answers){
     //     console.log(answers)
-    
-
-    //     function writeFile () {
-    //         fs.writeFile(__dirname, data, function(error){
-    //             if(error){
-    //                 return console.log(error);
-    //             }
-    //             console.log("Information Saved" + __dirname);
-    //         })
-    //     }
-    // });
-
-
-
-//
-
-    // const init = async () => {
-    //     const employee = []
-    //     let addEmployees = true;
-
-    // };
-                /// / After you have your html, you're now ready to create an HTML file using the HTML 
-            // const html = render(employee);
-
-            //// After the user has input all employees desired, call the `render` function (required/// above) and pass in an array containing all employee objects; the `render` function will//generate and return a block of HTML including templated divs for each employee!//// returned from the `render` function. 
-            // return render();
-//         // After you have your html, you're now ready to create an HTML file using the HTML
-//         // returned from the `render` function. Now write it to a file named `team.html` in the
-//         // `output` folder. You can use the variable `outputPath` above target this location.
-//         // Hint: you may need to check if the `output` folder exists and create it if it
-//         // does not
-    // init ();
-
-
-//         // Write code to use inquirer to gather information about the development team members,
-//         // and to create objects for each team member (using the correct classes as blueprints!)
-
-//         // Be sure to test out each class and verify it generates an
-//         // object with the correct structure and methods. This structure will be crucial in order
-//         // for the provided `render` function to work!
-
-//         // / Write code to use inquirer to gather information about the development team members,
-//         // and to create objects for each team member (using the correct classes as blueprints!)
-
-//         // After the user has input all employees desired, call the `render` function (required
-//         // above) and pass in an array containing all employee objects; the `render` function will
-//         // generate and return a block of HTML including templated divs for each employee!
-
-//         // After you have your html, you're now ready to create an HTML file using the HTML
-//         // returned from the `render` function. Now write it to a file named `team.html` in the
-//         // `output` folder. You can use the variable `outputPath` above target this location.
-//         // Hint: you may need to check if the `output` folder exists and create it if it
-//         // does not.
-
-//         // HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-//         // and Intern classes should all extend from a class named Employee; see the directions
-//         // for further information. Be sure to test out each class and verify it generates an
-//         // object with the correct structure and methods. This structure will be crucial in order
-//         // for the provided `render` function to work! 
