@@ -6,7 +6,7 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
-const http = require("http");
+// const http = require("http");
 //output code to create teh external html documents
 
 // const server = http.createServer(handleRequest);
@@ -16,205 +16,169 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 //render code to return and render the information
 const render = require("./lib/htmlRenderer");
+const Employee = require("./lib/Employee");
 //----------------------------------------------------//
 //more functions that I have created are below:
-
-const util = require("util");
-// const generateContent = require('./util/generateFile');
-//create for extra html documents 
-// const generateMarkdownFile = require ("./generateMarkdownFile");
-// const generateFile = util.promiseify(fs.generate);
-// const writeFile = util.promiseify(fs.writeFile);
-
-//-----------------------------------------------------//
+  
+// const util = require("util");
+//----------------------------------------------------//
 //-----------// code for addTeamMember to the list
 const teamMember = [];
-//function toq uestion  the user for input choices for the employeeQuestions:
 
-// function runApplication () {
-function addingMoreMembers (){
-
-    //prompting the user to choose
+function addEngineer (){
     inquirer.prompt ([
         {
             type: "list",
             message: "Choose which to enter?",
-            name: "Directory",
-            choices: ["Manager", "Engineer", "Intern", "Return"]
+            name: "directory",
+            choices: ["Manager", "Engineer", "Intern"],
         },
-        //prompting to enter name class employee
         {
             type: "input",
-            message: "Whats the candidate name?",
-            name: "name",
+            message: "Whats the Engineer's name?",
+            name: "answerName",
         },
-        //prompting to enter email class employee
         {
             type: "input",
-            message: "What is the email address?",
-            name: "email",
+            message: "What is the Engineer EmailAddress?",
+            name: "answerEmail",
         },
-        //prompting to enter ID number class employee
         {
             type: "input",
-            message: "What is the ID Number?",
-            name: "idNumber",
+            message: "What is the Engineer ID Number?",
+            name: "answerId",
         },
-        //prompting to enter office Number of the Managaer class
         {
             type: "input",
-            message: "What is your Office Number?",
-            name: "officeNumber",
+            message: "Whats Engineer GitHub?",
+            name: "answerGithub",
         },
-        //prompting to enter Github Account of the Engineer class
-        {
-            type: "input",
-            message: "Whats your gitHub Name?",
-            name: "github",
-        },
-        //prompting to get the school information of the Intern class
-        {
-            type: "input",
-            message: "What School did you attend?",
-            name: "school",
-        },
-        {
-            type: "confirm",
-            message: "Would you like to add more?",
-            name: "addingMoreMembers",
-        },
-    ]).then(function(response){
-        const newManager  = new Manager (response.name, response.email, response.id, response.role) 
-            teamMember.push(newManager);
-        if (response.addingMoreMembers === true) { //this is the function asking if it want to add another member. 
-           return addingMoreMembers();
-        } else {
-            renderTeam ();
-            console.log("check function!,file didnt generate")
-        };
-    })
-};
-addingMoreMembers ();
-
-function renderTeam ()
-{
-    function renderTeam (){
-                if (!fs.existsSync(outputPath)){ 
-                    fs.mkdirSync(OUTPUT_DIR);
-                }
-                fs.writeFile(outputPath, render(teamMember), (error) => {
-                    if (error) {
-                        throw err;
-                }
-                console.log("file generated")
-            })
+    ]).then(function(answer){
+        const addEngineer = new Engineer (answer.answerName, answer.answerEmail, answer.answerId, answer.answerGithub)
+        teamMember.push(addEngineer);
+        if (answer.addingMoreMembers === true) {
+            addIntern ();
+            addEngineer ();
+        }else{
+            renderTeam();
+            console.log("Generated Render Team");
         }
+    })
 }
-// 
 
+function addIntern(){
+    inquirer.prompt ([
+        {
+            type: "input",
+            message: "Whats the Intern's name?",
+            name: "answerName",
+        },
+        {
+            type: "input",
+            message: "What is the Intern EmailAddress?",
+            name: "answerEmail",
+        },
+        {
+            type: "input",
+            message: "What is the Intern ID Number?",
+            name: "answerId",
+        },
+        {
+            type: "input",
+            message: "Whats Engineer GitHub?",
+            name: "answerSchool",
+        },
+    ]).then (function(answer){
+        const addIntern = new Intern (answer.answerName, answer.answerEmail, answer.answerId, answer.answerSchool)
+        teamMember.push(addIntern);
+        if (answer.addingMoreMembers === true) {
+             
+        }else{
+            renderTeam();
+            console.log("Intern")
+        }
+    });
+}
 
-    // ]).then(function (response){
-    //     console.log (response)
+function runApplication() {
+    inquirer.prompt ([
+        {
+                type: "input",
+                message: "Whats the Manager's name?",
+                name: "answerName",
+        },
+        {
+                type: "input",
+                message: "What is the Manager EmailAddress?",
+                name: "answerEmail",
+        },
+        {
+                type: "input",
+                message: "What is the Manager ID Number?",
+                name: "answerId",
+        },
+        {
+            type: "input",
+            message: "What is Manager Office Number?",
+            name: "answerOfficeNumber",
+        },
+    ]).then(function(answer){
+        const addManager = new Manager (answer.answerName, answer.answerEmail, answer.answerId, answer.answerOfficeNumber)
+        teamMember.push(addManager);
+        if (answer.addingMoreMembers === true) {
+            
+        }else{
+            // renderTeam();
+            console.log("Team Maanger")
+            console.log(teamMember);
+        }
+    })
 
-    //     const generate = "output/team.html";
+    
+    
+    //     .then(function (answer) {
+    //             console.log(answer)
+            
+    //             //line 93- shows what file is going to be made from the questions anaswered 
+    //             const OUTPUT_DIR = path.resolve(__dirname, "output");
+            
+    //             const outputPath = path.join(OUTPUT_DIR, "team.html");
+    //             console.log(OUTPUT_DIR);
+            
+    //             fs.writeFileSync(outputPath, render(teamMember), "index.html", "UTF-8");
+    // //         console.log(response)
+    //         });
+}
+runApplication();
+//     .then (function(answer){
+//         if(answer.answer.role === "Engineer") {
+//             runApplication (answer);
+//         }else if (answer.answer.role === "Intern") {
+//             addEngineer(answer);
+//         }else{
+//             addManager(answer)
 
-    //     const content = generateContent(response);
-
-    //     fs.
-
-    // )};
+//     //confirm all question answers since all answers are correct. Also confirming that there is no one else to include. 
+//     // ].then(function(answers){
+//     //     console.log(answers)
     
 
+//     //     function writeFile () {
+//     //         fs.writeFile(__dirname, data, function(error){
+//     //             if(error){
+//     //                 return console.log(error);
+//     //             }
+//     //             console.log("Information Saved" + __dirname);
+//     //         })
+//     //     }
+//     // });
+//     // const init = async () => {
+//     //     const employee = []
+//     //     let addEmployees = true;
 
-            // {type: "input", message: "This is line 29-Please confirm both answers ", name: "managerName" },
-            // {type: "input", message: "What is Id Number", name: "managerId" },
-            // {type: "input", message: "managerEmail", name: "What is the email address?" },
-            // {type: "input", message: "managerOfficeNumber", name: "What is the office number?" },
-            //this the functions for the manager 
-        // ).then (response => {
-        //     const manager = new Manager (response.managerName, response.managerId, response.managerEmail, response.officeNumber);
-        //     teamMember.push(manager);
-        //     addingMoreMembers();
+//     // };
+// After you have your html, you're now ready to create an HTML file using the HTML 
+//             // const html = render(employee);
 
-        //function for the Engineer questions 
-        // function getEngineer (){
-        //     inquirer.prompt ([
-        //         // {type: "input", message: "engineerName", name: "What is Engineer's Name?" },
-        //         {type: "input", message: "managerEmail", name: "What is the email address?" },
-        //         {type: "input", name: "engineerId", message: "What is the ID Number?"},
-        //         {type: "input", name: "github", message: "What is your github username?"},
-        //     ]).then(response => {
-        //         const engineer = new Engineer (response.engineerName, response.managerEmail, response.engineerId, response.github);
-        //         teamMember.push(engineer);
-        //         addingMoreMembers();
-        //         // id.push(response.engineerId);
-        //     })
-        // }
+//             // return render();
 
-        //function fot the intern 
-        // function getIntern () {
-        //     
-        
-        //function to add more memebers to any section 
-        //this is the first thing that is prompted/ 
-        // function addingMoreMembers (){
-        //     inquirer.prompt (
-        //         {
-        //             type: "rawlist",//only allowed one choice
-        //             name: "position",
-        //             choices: ["Manager", "Engineer", "Intern"], // choice selection
-        //             message: "Choose which to enter?", //which selection is choosen
-        //         }
-        //     );
-                // }).then(response => {
-        //         // const role = response.position;
-        // if (role == "manager"){
-        //             getManager ();
-        //         }else if (role == "engineer"){
-        //             getEngineer ();
-        //         } else if (role == "intern"){
-        //         //     getIntern ();
-        //         inquirer.prompt ([
-        //             {   type: "input", 
-        //                 message: "internName", 
-        //                 name: "What is Intern's Name?" 
-        //             },
-        //             {   type: "input", 
-        //                 name: "internId", 
-        //                 message: "What is the ID Number?"
-        //             },
-        //             {   type: "input", 
-        //                 message: "internEmail", 
-        //                 name: "What is the email address?" 
-        //             },
-        //             {   type: "input", 
-        //                 name: "school", 
-        //                 message: "What school did you attend?"
-        //             },
-        //                 ]).then(response => {
-        //                     const intern = new Intern (response.internName, response.internId, reponse.internEmail, response.school);
-        //                     teamMember.push(intern);
-        //                     addingMoreMembers();
-        //                     //id.push(response.internId);
-        //                 })
-        //             }
-        //this prompts to ask which selection to choose from
-    //     addingMoreMembers ();
-    
-    //     function renderTeam (){
-    //         if (!fs.existsSync(outputPath)){ 
-    //             fs.mkdirSync(OUTPUT_DIR);
-    //         }
-    //         fs.writeFile(outputPath, render(teamMember), (error) => {
-    //             if (error) {
-    //                 throw err;
-    //         }
-    //         console.log("Did this work?")
-    //     })
-    // }
-    //this should be the last thing after the function is closed to actually run the application questions 
-    // runApplication ();
-
-    //confirm all question answers since all answers are correct. Also confirming that there is no one else to include. 
-    // ].then(function(answers){
-    //     console.log(answers)

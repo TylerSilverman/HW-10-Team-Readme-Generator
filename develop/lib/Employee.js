@@ -22,7 +22,7 @@ class Employee {
         return this.id;
     }
     getRole() {
-        return this.role;
+        return "Employee";
     }
 
 };
