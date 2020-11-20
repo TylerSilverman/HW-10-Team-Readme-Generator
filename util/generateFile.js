@@ -4,16 +4,16 @@ function generateFile (response) {
     return `
 
     ## Directory:
-    ${response.Directory}
+    ${answer.role}
 
     ## name
-    ${response.name}
+    ${answer.name}
 
     ## idNumber
-    ${response.idNumber}
+    ${answer.idNumber}
 
     ## Email
-    ${response.email}
+    ${answer.email}
 
     `;
 }
