@@ -7,8 +7,6 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
-// const server = http.createServer(handleRequest);
-
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 
 const outputPath = path.join(OUTPUT_DIR, "team.html");
@@ -17,6 +15,8 @@ const render = require("./lib/htmlRenderer");
 const Employee = require("./lib/Employee");
 //-----------// code for addTeamMember to the list
 const teamMember = [];
+
+
 
 function addIntern (){
     // var engineer;
@@ -28,14 +28,14 @@ function addIntern (){
         name: "answerName",
     },
     {
-            type: "input",
-            message: "What's the Intern EmailAddress?",
-            name: "answerEmail",
+        type: "input",
+        message: "What's the Intern EmailAddress?",
+        name: "answerEmail",
     },
     {
-            type: "input",
-            message: "What's the Intern ID Number?",
-            name: "answerId",
+        type: "input",
+        message: "What's the Intern ID Number?",
+        name: "answerId",
     },
     {
             type: "input",
@@ -43,9 +43,9 @@ function addIntern (){
             name: "answerSchool",
         
     },
-]).then((answer) => {
-    console.log("finished Intern Prompt", answer);
-    const intern = new Intern (answer.answerName, answer.answerEmail, answer.answerId, answer.answerSchool);
+]).then((answerIntern) => {
+    console.log("Intern-Member Created", answerIntern);
+    const intern = new Intern (answerIntern.answerName, answerIntern.answerId, answerIntern.answerEmail, answerIntern.answerSchool);
     //     teamMember.push(addEngineer);
     teamMember.push(intern);
     const OUTPUT_DIR = path.resolve(__dirname, "output");   
@@ -80,8 +80,8 @@ function addEngineer (){
         
     },
 ]).then((answer) => {
-    console.log("finished Engineer Prompt", answer);
-    const engineer = new Engineer (answer.answerName, answer.answerEmail, answer.answerId, answer.answerGithub);
+    console.log("Engineer-Member Created", answer);
+    const engineer = new Engineer (answer.answerName, answer.answerId, answer.answerEmail, answer.answerGithub);
     //     teamMember.push(addEngineer);
     teamMember.push(engineer);
     const OUTPUT_DIR = path.resolve(__dirname, "output");   
@@ -115,7 +115,7 @@ function addManager (){
             name: "answerOfficeNumber",
     }
 ]).then((answer) => {
-    console.log("finihsed prompt", answer);
+    console.log("Manager-Member Created", answer);
     var manager = new Manager (answer.answerName, answer.answerId, answer.answerEmail, answer.answerOfficeNumber);
     teamMember.push(manager);
     const OUTPUT_DIR = path.resolve(__dirname, "output");   
@@ -124,22 +124,33 @@ function addManager (){
 })
 }
 
+function addMoreMembers() {
+    inquirer.prompt ([
+        {
+            type: "confirm",
+            message: "Do you want to add More Members?",
+            name: "confirm",
+            choices: ["Yes", "No"],
+        },
+        {
+            type: "list",
+            message: "Choose which to enter?",
+            name: "role",
+            choices: ["Manager", "Engineer", "Intern"],
+        }
+    ]).then((answer) => {
+        console.log(answer)
+    })
+}
+
+
+
 function runApplication() {
-    console.log("teamBuilder")
+    console.log("runApplication generated!")
+    // addMoreMembers();
     addManager();
     addEngineer();
     addIntern();
-        // inquirer.prompt ([
-        // {
-        //         type: "list",
-        //         message: "Choose which to enter?",
-        //         name: "role",
-        //         choices: ["Manager", "Engineer", "Intern"],
-        // },
-        //
-        // }).then(function (answer) 
-    // {const addIntern = new Intern (answer.answerName, answer.answerEmail, answer.answerId, answer.answerSchool);
-    //     teamMember.push(addIntern);
 }
 runApplication();
 //----------------------code is above-------
