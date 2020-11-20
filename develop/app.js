@@ -15,11 +15,6 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 //render code to return and render the information
 const render = require("./lib/htmlRenderer");
 const Employee = require("./lib/Employee");
-//----------------------------------------------------//
-//more functions that I have created are below:
-  
-// const util = require("util");
-//----------------------------------------------------//
 //-----------// code for addTeamMember to the list
 const teamMember = [];
 
@@ -28,13 +23,13 @@ function runApplication() {
         {
             type: "confirm",
             message: "Do you want to add another?",
-            name: "confirm",
+            name: "addMore",
             choices: ["Yes", "No"],
         },
         {
             type: "list",
             message: "Choose which to enter?",
-            name: "directory",
+            name: "role",
             choices: ["Manager", "Engineer", "Intern"],
         },
         {
@@ -67,14 +62,15 @@ function runApplication() {
         message: "What school did the intern attend?",
         name: "answerSchool",
         },
-    ]).then(function (answer) {
-        const addManager = new Manager (answer.answerName, answer.answerEmail, answer.answerId, answer.answerOfficeNumber)
+    ]).then(function (answer) 
+    {
+        const addManager = new Manager (answer.answerName, answer.answerEmail, answer.answerId, answer.answerOfficeNumber);
         teamMember.push(addManager);
 
-        const addIntern = new Intern (answer.answerName, answer.answerEmail, answer.answerId, answer.answerSchool)
+        const addIntern = new Intern (answer.answerName, answer.answerEmail, answer.answerId, answer.answerSchool);
         teamMember.push(addIntern);
 
-        const addEngineer = new Engineer (answer.answerName, answer.answerEmail, answer.answerId, answer.answerGithub)
+        const addEngineer = new Engineer (answer.answerName, answer.answerEmail, answer.answerId, answer.answerGithub);
         teamMember.push(addEngineer);
 
         console.log(answer)
@@ -85,5 +81,9 @@ function runApplication() {
                 
         fs.writeFileSync(outputPath, render(teamMember), "UTF-8");
     });
-}
+};
 runApplication();
+//----------------------code is above-------//
+
+
+
