@@ -3,7 +3,7 @@ const Employee = require("./Employee");
 // TODO: Write code to define and export the Manager class. HINT: This class should inherit from Employee.
 class Manager extends Employee {
     constructor (name, email, id, officeNumber){
-        super (name, email, id, "Manager");
+        super (name, id, email, "Manager");
         this.officeNumber = officeNumber; ///Can set office number via constructor argument 
     };
         //Can set office number via constructor argument line 7

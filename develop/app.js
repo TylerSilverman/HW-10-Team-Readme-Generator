@@ -18,73 +18,120 @@ const Employee = require("./lib/Employee");
 //-----------// code for addTeamMember to the list
 const teamMember = [];
 
-function runApplication() {
-    inquirer.prompt ([
-        {
-            type: "confirm",
-            message: "Do you want to add another?",
-            name: "addMore",
-            choices: ["Yes", "No"],
-        },
-        
-        {
-            type: "list",
-            message: "Choose which to enter?",
-            name: "role",
-            choices: ["Manager", "Engineer", "Intern"],
-        },
-        {
-                type: "input",
-                message: "What's the name?",
-                name: "answerName",
-        },
-        {
-                type: "input",
-                message: "What's the EmailAddress?",
-                name: "answerEmail",
-        },
-        {
-                type: "input",
-                message: "What's the ID Number?",
-                name: "answerId",
-        },
-        {
+// function addIntern () {
+//     var intern
+//     inquirer.prompt () (
+//     {
+//             type: "input",
+//             message: "What's the name?",
+//             name: "answerName",
+//     },
+//     {
+//             type: "input",
+//             message: "What's the EmailAddress?",
+//             name: "answerEmail",
+//     },
+//     {
+//             type: "input",
+//             message: "What's the ID Number?",
+//             name: "answerId",
+//     },
+//     {
+//             type: "input",
+//             message: "What school did the intern attend?",
+//             name: "answerSchool",
+//     })
+//     addIntern ();
+// };
+
+// function addEngineer () {
+//     inquirer.prompt () ({
+//         type: "input",
+//         message: "What's the Engineer Github Account?",
+//         name: "answerGithub",
+
+//     })
+// };
+
+function addManager (){
+    // var manager;
+    console.log("addManagerFunction")
+    inquirer.prompt([
+    {
+        type: "input",
+        message: "What's the Manager's name?",
+        name: "answerName",
+    },
+    {
+            type: "input",
+            message: "What's the Manager EmailAddress?",
+            name: "answerEmail",
+    },
+    {
+            type: "input",
+            message: "What's the Manager ID Number?",
+            name: "answerId",
+    },
+    {
             type: "input",
             message: "What is the Manager Office Number?",
             name: "answerOfficeNumber",
-        },
-        {
-            type: "input",
-            message: "What's the Engineer Github Account?",
-            name: "answerGithub",
-        },
-        {
-        type: "input",
-        message: "What school did the intern attend?",
-        name: "answerSchool",
-        },
-    ]).then(function (answer) 
-    {
-        const addManager = new Manager (answer.answerName, answer.answerEmail, answer.answerId, answer.answerOfficeNumber);
-        teamMember.push(addManager);
+    }
+]).then((answer) => {
+    console.log("finihsed prompt", answer);
+    var manager = new Manager (answer.answerName, answer.answerId, answer.answerEmail, answer.answerOfficeNumber);
+    teamMember.push(manager);
+    const OUTPUT_DIR = path.resolve(__dirname, "output");   
+    const outputPath = path.join(OUTPUT_DIR, "team.html");
+    fs.writeFileSync(outputPath, render(teamMember), "UTF-8");
+})
+}
 
-        const addIntern = new Intern (answer.answerName, answer.answerEmail, answer.answerId, answer.answerSchool);
-        teamMember.push(addIntern);
+function runApplication() {
+    console.log("teamBuilder")
+    addManager();
+    // const manager = addManager();
+    // teamMember.push(manager);
+    // const OUTPUT_DIR = path.resolve(__dirname, "output");   
+    // const outputPath = path.join(OUTPUT_DIR, "team.html");
+    // fs.writeFileSync(outputPath, render(teamMember), "UTF-8");
 
-        const addEngineer = new Engineer (answer.answerName, answer.answerEmail, answer.answerId, answer.answerGithub);
-        teamMember.push(addEngineer);
+        // addEngineer ();
+        // inquirer.prompt ([
+        // {
+        //         type: "list",
+        //         message: "Choose which to enter?",
+        //         name: "role",
+        //         choices: ["Manager", "Engineer", "Intern"],
+        // },
+        // {
+        //         type: "input",
+        //         message: "What's the name?",
+        //         name: "answerName",
+        // },
+        // {
+        //         type: "input",
+        //         message: "What's the EmailAddress?",
+        //         name: "answerEmail",
+        // },
+        // {
+        //         type: "input",
+        //         message: "What's the ID Number?",
+        //         name: "answerId",
+        // },
+        // }).then(function (answer) 
+    // {
+    //     const addManager = new Manager (answer.answerName, answer.answerEmail, answer.answerId, answer.answerOfficeNumber);
+    //     teamMember.push(addManager);
 
-        console.log(answer)
-        const OUTPUT_DIR = path.resolve(__dirname, "output");
-                
-         const outputPath = path.join(OUTPUT_DIR, "team.html");
-        console.log(OUTPUT_DIR);
-                
-        fs.writeFileSync(outputPath, render(teamMember), "UTF-8");
-    });
+    //     const addIntern = new Intern (answer.answerName, answer.answerEmail, answer.answerId, answer.answerSchool);
+    //     teamMember.push(addIntern);
+
+    //     const addEngineer = new Engineer (answer.answerName, answer.answerEmail, answer.answerId, answer.answerGithub);
+    //     teamMember.push(addEngineer);
+
+    //     console.log(answer)
+    // };
 };
 runApplication();
-//----------------------code is above-------//
-
-
-
+//----------------------code is above-------

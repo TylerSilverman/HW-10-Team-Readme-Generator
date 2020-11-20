@@ -1,11 +1,12 @@
 // TODO: Write code to define and export the Employee class
 //Can instantiate Employee instance
 class Employee {
-    constructor (name, email, id, role){
+    constructor (name, id, email){
         this.name = name; //Can set name via constructor arguments
-        this.email = email; //Can set email via constructor
         this.id = id; //Can set id via constructor argument
-        this.role = role;
+        // this.role = role;
+        this.email = email; //Can set email via constructor
+
     };
     //getRole() should return "Employee"
 
