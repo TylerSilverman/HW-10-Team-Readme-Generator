@@ -6,8 +6,6 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
-// const http = require("http");
-//output code to create teh external html documents
 
 // const server = http.createServer(handleRequest);
 
@@ -56,17 +54,17 @@ function runApplication() {
         },
         {
             type: "input",
-            message: "What is Office Number?",
+            message: "What is the Manager Office Number?",
             name: "answerOfficeNumber",
         },
         {
             type: "input",
-            message: "What's the Github Account?",
+            message: "What's the Engineer Github Account?",
             name: "answerGithub",
         },
         {
         type: "input",
-        message: "What school did you attend?",
+        message: "What school did the intern attend?",
         name: "answerSchool",
         },
     ]).then(function (answer) {
@@ -86,7 +84,6 @@ function runApplication() {
         console.log(OUTPUT_DIR);
                 
         fs.writeFileSync(outputPath, render(teamMember), "UTF-8");
-        console.log(response)
     });
 }
 runApplication();
