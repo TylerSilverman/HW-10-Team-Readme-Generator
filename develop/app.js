@@ -26,6 +26,7 @@ function runApplication() {
             name: "addMore",
             choices: ["Yes", "No"],
         },
+        
         {
             type: "list",
             message: "Choose which to enter?",
