@@ -12,6 +12,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 //-----------// code for addTeamMember to the list
 const teamMember = [];
+
 function addIntern() {
   inquirer.prompt([
     {
