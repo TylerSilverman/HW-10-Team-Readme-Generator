@@ -157,11 +157,65 @@ function addMoreMembers() {
         }
     ]).then((answer) => {
         console.log(answer)
+        // addManager();
+        // addEngineer();
+        addIntern();
+    })
+}
+
+function addMoreMembers() {
+    console.log("addMoreMembers")
+    inquirer.prompt ([
+        {
+            type: "confirm",
+            message: "Do you want to add More Members?",
+            name: "confirm",
+            choices: ["Yes", "No"],
+        },
+        {
+            type: "list",
+            message: "Choose which to enter?",
+            name: "role",
+            choices: ["Manager", "Engineer", "Intern"],
+        }
+    ]).then((answer) => {
+        console.log(answer)
         addManager();
         // addEngineer();
         // addIntern();
     })
 }
+
+function addMoreMembers() {
+    console.log("addMoreMembers")
+    inquirer.prompt ([
+        {
+            type: "confirm",
+            message: "Do you want to add More Members?",
+            name: "confirm",
+            choices: ["Yes", "No"],
+        },
+        {
+            type: "list",
+            message: "Choose which to enter?",
+            name: "role",
+            choices: ["Manager", "Engineer", "Intern"],
+        }
+    ]).then((answer) => {
+        console.log(answer)
+        // addManager();
+        addEngineer();
+        // addIntern();
+    })
+}
+
+// if (role === "Manager") {
+//     addManager();
+// } else if ( role === "Engineer") {
+//     addEngineer();
+// } else if ( role === "Intern"){
+//     addIntern();
+// }
 
 
 
