@@ -103,7 +103,7 @@ function addMoreMembers() {
       type: "list",
       message: "Add another team member?",
       name: "role",
-      choices: ["Engineer", "Intern", "Nope. Generate output file."],
+      choices: ["Engineer", "Intern", "Submit to Generate Output File"],
     }
   ]).then((answer) => {
     if (answer.role === "Engineer") {
