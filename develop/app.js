@@ -6,228 +6,117 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
-
 const OUTPUT_DIR = path.resolve(__dirname, "output");
-
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 //render code to return and render the information
 const render = require("./lib/htmlRenderer");
-const Employee = require("./lib/Employee");
 //-----------// code for addTeamMember to the list
 const teamMember = [];
-
-
-
-function addIntern (){
-    // var engineer;
-    // console.log("addInternFunction")
-    inquirer.prompt([
+function addIntern() {
+  inquirer.prompt([
     {
-        type: "input",
-        message: "What's the Intern's name?",
-        name: "answerName",
+      type: "input",
+      message: "What's the Intern's name?",
+      name: "answerName",
     },
     {
-        type: "input",
-        message: "What's the Intern EmailAddress?",
-        name: "answerEmail",
+      type: "input",
+      message: "What's the Intern EmailAddress?",
+      name: "answerEmail",
     },
     {
-        type: "input",
-        message: "What's the Intern ID Number?",
-        name: "answerId",
+      type: "input",
+      message: "What's the Intern ID Number?",
+      name: "answerId",
     },
     {
-            type: "input",
-            message: "What school did you attend",
-            name: "answerSchool",
-        
+      type: "input",
+      message: "What school did you attend",
+      name: "answerSchool",
     },
-]).then((answerIntern) => {
-    console.log("Intern-Member Created", answerIntern);
-    const intern = new Intern (answerIntern.answerName, answerIntern.answerId, answerIntern.answerEmail, answerIntern.answerSchool);
-    //     teamMember.push(addEngineer);
+  ]).then((answerIntern) => {
+    const intern = new Intern(answerIntern.answerName, answerIntern.answerId, answerIntern.answerEmail, answerIntern.answerSchool);
     teamMember.push(intern);
     addMoreMembers();
-    const OUTPUT_DIR = path.resolve(__dirname, "output");   
-    const outputPath = path.join(OUTPUT_DIR, "team.html");
-    fs.writeFileSync(outputPath, render(teamMember), "UTF-8");
-})
+  });
 }
-
-function addEngineer (){
-    // var engineer;
-    console.log("addEngineerFunction")
-    inquirer.prompt([
+function addEngineer() {
+  inquirer.prompt([
     {
-        type: "input",
-        message: "What's the Engineer's name?",
-        name: "answerName",
+      type: "input",
+      message: "What's the Engineer's name?",
+      name: "answerName",
     },
     {
-            type: "input",
-            message: "What's the Engineer EmailAddress?",
-            name: "answerEmail",
+      type: "input",
+      message: "What's the Engineer EmailAddress?",
+      name: "answerEmail",
     },
     {
-            type: "input",
-            message: "What's the Engineer ID Number?",
-            name: "answerId",
+      type: "input",
+      message: "What's the Engineer ID Number?",
+      name: "answerId",
     },
     {
-            type: "input",
-            message: "What's the Engineer Github Account?",
-            name: "answerGithub",
-        
+      type: "input",
+      message: "What's the Engineer Github Account?",
+      name: "answerGithub",
     },
-]).then((answer) => {
-    console.log("Engineer-Member Created", answer);
-    const addEngineer = new Engineer (answer.answerName, answer.answerId, answer.answerEmail, answer.answerGithub);
-    //     teamMember.push(addEngineer);
+  ]).then((answer) => {
+    const addEngineer = new Engineer(answer.answerName, answer.answerId, answer.answerEmail, answer.answerGithub);
     teamMember.push(addEngineer);
     addMoreMembers();
-    const OUTPUT_DIR = path.resolve(__dirname, "output");   
-    const outputPath = path.join(OUTPUT_DIR, "team.html");
-    fs.writeFileSync(outputPath, render(teamMember), "UTF-8");
-})
+  });
 }
-
-function addManager(){
-    // var manager;
-    // console.log("addManagerFunction")
-    inquirer.prompt([
+function addManager() {
+  inquirer.prompt([
     {
-        type: "input",
-        message: "What's the Manager's name?",
-        name: "answerName",
+      type: "input",
+      message: "What's the Manager's name?",
+      name: "answerName",
     },
     {
-            type: "input",
-            message: "What's the Manager EmailAddress?",
-            name: "answerEmail",
+      type: "input",
+      message: "What's the Manager EmailAddress?",
+      name: "answerEmail",
     },
     {
-            type: "input",
-            message: "What's the Manager ID Number?",
-            name: "answerId",
+      type: "input",
+      message: "What's the Manager ID Number?",
+      name: "answerId",
     },
     {
-            type: "input",
-            message: "What is the Manager Office Number?",
-            name: "answerOfficeNumber",
+      type: "input",
+      message: "What is the Manager Office Number?",
+      name: "answerOfficeNumber",
     }
-]).then((answer) => {
-    console.log("Manager-Member Created", answer);
-    var manager = new Manager (answer.answerName, answer.answerId, answer.answerEmail, answer.answerOfficeNumber);
+  ]).then((answer) => {
+    const manager = new Manager(answer.answerName, answer.answerId, answer.answerEmail, answer.answerOfficeNumber);
     teamMember.push(manager);
     addMoreMembers();
-    const OUTPUT_DIR = path.resolve(__dirname, "output");   
-    const outputPath = path.join(OUTPUT_DIR, "team.html");
-    fs.writeFileSync(outputPath, render(teamMember), "UTF-8");
-})
+  })
 }
-
-function manager(){
-    inquirer.prompt([
-        {
-            type: "list",
-            message: "Choose which to enter?",
-            name: "role",
-            choices: ["Manager", "Engineer", "Intern"],
-        }
-
-    ])
-
-}
-
 function addMoreMembers() {
-    console.log("addMoreMembers")
-    inquirer.prompt ([
-        {
-            type: "confirm",
-            message: "Do you want to add More Members?",
-            name: "confirm",
-            choices: ["Yes", "No"],
-        },
-        {
-            type: "list",
-            message: "Choose which to enter?",
-            name: "role",
-            choices: ["Manager", "Engineer", "Intern"],
-        }
-    ]).then((answer) => {
-        console.log(answer)
-        // addManager();
-        // addEngineer();
-        addIntern();
-    })
+  inquirer.prompt([
+    {
+      type: "list",
+      message: "Add another team member?",
+      name: "role",
+      choices: ["Engineer", "Intern", "Nope. Generate output file."],
+    }
+  ]).then((answer) => {
+    if (answer.role === "Engineer") {
+      addEngineer();
+    } else if (answer.role === "Intern") {
+      addIntern();
+    } else {
+      const OUTPUT_DIR = path.resolve(__dirname, "output");
+      const outputPath = path.join(OUTPUT_DIR, "team.html");
+      fs.writeFileSync(outputPath, render(teamMember), "UTF-8");
+    }
+  })
 }
-
-function addMoreMembers() {
-    console.log("addMoreMembers")
-    inquirer.prompt ([
-        {
-            type: "confirm",
-            message: "Do you want to add More Members?",
-            name: "confirm",
-            choices: ["Yes", "No"],
-        },
-        {
-            type: "list",
-            message: "Choose which to enter?",
-            name: "role",
-            choices: ["Manager", "Engineer", "Intern"],
-        }
-    ]).then((answer) => {
-        console.log(answer)
-        addManager();
-        // addEngineer();
-        // addIntern();
-    })
-}
-
-function addMoreMembers() {
-    console.log("addMoreMembers")
-    inquirer.prompt ([
-        {
-            type: "confirm",
-            message: "Do you want to add More Members?",
-            name: "confirm",
-            choices: ["Yes", "No"],
-        },
-        {
-            type: "list",
-            message: "Choose which to enter?",
-            name: "role",
-            choices: ["Manager", "Engineer", "Intern"],
-        }
-    ]).then((answer) => {
-        console.log(answer)
-        // addManager();
-        addEngineer();
-        // addIntern();
-    })
-}
-
-// if (role === "Manager") {
-//     addManager();
-// } else if ( role === "Engineer") {
-//     addEngineer();
-// } else if ( role === "Intern"){
-//     addIntern();
-// }
-
-
-
-
 function runApplication() {
-    console.log("runApplication generated!");
-    addMoreMembers();
-    // addManager();
-    // addEngineer();
-    // addIntern();
-
+  addManager();
 }
-
 runApplication();
-//----------------------code is above-------
