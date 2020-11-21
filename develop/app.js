@@ -48,6 +48,7 @@ function addIntern (){
     const intern = new Intern (answerIntern.answerName, answerIntern.answerId, answerIntern.answerEmail, answerIntern.answerSchool);
     //     teamMember.push(addEngineer);
     teamMember.push(intern);
+    addMoreMembers();
     const OUTPUT_DIR = path.resolve(__dirname, "output");   
     const outputPath = path.join(OUTPUT_DIR, "team.html");
     fs.writeFileSync(outputPath, render(teamMember), "UTF-8");
@@ -56,7 +57,7 @@ function addIntern (){
 
 function addEngineer (){
     // var engineer;
-    // console.log("addEngineerFunction")
+    console.log("addEngineerFunction")
     inquirer.prompt([
     {
         type: "input",
@@ -81,16 +82,17 @@ function addEngineer (){
     },
 ]).then((answer) => {
     console.log("Engineer-Member Created", answer);
-    const engineer = new Engineer (answer.answerName, answer.answerId, answer.answerEmail, answer.answerGithub);
+    const addEngineer = new Engineer (answer.answerName, answer.answerId, answer.answerEmail, answer.answerGithub);
     //     teamMember.push(addEngineer);
-    teamMember.push(engineer);
+    teamMember.push(addEngineer);
+    addMoreMembers();
     const OUTPUT_DIR = path.resolve(__dirname, "output");   
     const outputPath = path.join(OUTPUT_DIR, "team.html");
     fs.writeFileSync(outputPath, render(teamMember), "UTF-8");
 })
 }
 
-function addManager (){
+function addManager(){
     // var manager;
     // console.log("addManagerFunction")
     inquirer.prompt([
@@ -118,13 +120,28 @@ function addManager (){
     console.log("Manager-Member Created", answer);
     var manager = new Manager (answer.answerName, answer.answerId, answer.answerEmail, answer.answerOfficeNumber);
     teamMember.push(manager);
+    addMoreMembers();
     const OUTPUT_DIR = path.resolve(__dirname, "output");   
     const outputPath = path.join(OUTPUT_DIR, "team.html");
     fs.writeFileSync(outputPath, render(teamMember), "UTF-8");
 })
 }
 
+function manager(){
+    inquirer.prompt([
+        {
+            type: "list",
+            message: "Choose which to enter?",
+            name: "role",
+            choices: ["Manager", "Engineer", "Intern"],
+        }
+
+    ])
+
+}
+
 function addMoreMembers() {
+    console.log("addMoreMembers")
     inquirer.prompt ([
         {
             type: "confirm",
@@ -140,17 +157,23 @@ function addMoreMembers() {
         }
     ]).then((answer) => {
         console.log(answer)
+        addManager();
+        // addEngineer();
+        // addIntern();
     })
 }
 
 
 
+
 function runApplication() {
-    console.log("runApplication generated!")
-    // addMoreMembers();
-    addManager();
-    addEngineer();
-    addIntern();
+    console.log("runApplication generated!");
+    addMoreMembers();
+    // addManager();
+    // addEngineer();
+    // addIntern();
+
 }
+
 runApplication();
 //----------------------code is above-------
