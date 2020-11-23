@@ -1,3 +1,5 @@
+////make sure the terminal is in the /develop(main), and then in the terminal type in:      node app. js to begin. 
+
 //code that was given to start:
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
@@ -45,17 +47,17 @@ function addEngineer() {
   inquirer.prompt([
     {
       type: "input",
-      message: "What's the Engineer's name?",
+      message: "What's the Engineer Name",
       name: "answerName",
     },
     {
       type: "input",
-      message: "What's the Engineer EmailAddress?",
+      message: "What's the Email Address?",
       name: "answerEmail",
     },
     {
       type: "input",
-      message: "What's the Engineer ID Number?",
+      message: "What's the ID Number?",
       name: "answerId",
     },
     {
@@ -73,22 +75,22 @@ function addManager() {
   inquirer.prompt([
     {
       type: "input",
-      message: "What's the Manager's name?",
+      message: "Name of person inputting the information",
       name: "answerName",
     },
     {
       type: "input",
-      message: "What's the Manager EmailAddress?",
+      message: "Enter a vaild email address?",
       name: "answerEmail",
     },
     {
       type: "input",
-      message: "What's the Manager ID Number?",
+      message: "What's the ID Number?",
       name: "answerId",
     },
     {
       type: "input",
-      message: "What is the Manager Office Number?",
+      message: "Enter contact information?",
       name: "answerOfficeNumber",
     }
   ]).then((answer) => {
